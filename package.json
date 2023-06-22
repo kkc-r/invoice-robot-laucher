@@ -1,11 +1,11 @@
 {
-  "name": "invorobo-launcher",
-  "productName": "InvoRoboLauncher",
-  "version": "0.1.13",
+  "name": "launcher",
+  "productName": "Launcher",
+  "version": "0.0.1",
   "private": true,
   "homepage": "./",
   "main": "build/electron/main.js",
-  "author": "RICOH",
+  "author": "test",
   "description": "",
   "repository": {
     "url": "https://github.com/kkc-r/invoice-robot-laucher.git"
@@ -55,6 +55,7 @@
     "electron-log": "^4.4.8",
     "electron-reload": "^2.0.0-alpha.1",
     "electron-store": "^8.1.0",
+    "electron-updater": "^6.1.1",
     "jssha": "^3.3.0",
     "mui-modal-provider": "^2.2.0",
     "normalize.css": "^8.0.1",
@@ -72,7 +73,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "electron:build": "tsc -p electron && yarn obfuscator",
-    "obfuscator": "javascript-obfuscator ./build/electron/main.js --output ./build/electron/main.js && javascript-obfuscator ./build/electron/preload.js --output ./build/electron/preload.js",
+    "obfuscator": "javascript-obfuscator ./build/electron/main.js --output ./build/electron/main.js",
     "electron:dev": "concurrently \"yarn start\" \"wait-on http://localhost:3000 && tsc -p electron -w\" \"wait-on http://localhost:3000 && tsc -p electron && electron .\"",
     "electron-dev2": "set ELECTRON_START_URL=http://localhost:3000 && electron public",
     "start-electron": "wait-on http://localhost:3000 && electron .",
