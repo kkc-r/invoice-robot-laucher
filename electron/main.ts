@@ -7,25 +7,13 @@ import * as log from 'electron-log';
 let win: BrowserWindow | null = null;
 
 function createWindow() {
-  // 自動アップデート
-  require('update-electron-app')();
-  autoUpdater.on('update-available', () => {
-    log.info('update-available');
-  });
-  autoUpdater.on('update-not-available', () => {
-    log.info('update-not-available');
-  });
-  autoUpdater.on('error', (error: Error) => {
-    log.info('error');
-    log.info(error);
-  });
-  autoUpdater.checkForUpdates();
-
   const gotTheLock = app.requestSingleInstanceLock();
   if (!gotTheLock) {
     log.info('メインプロセスが多重起動しました。終了します。');
     app.quit();
   }
+
+  log.info('version : 0.0.3');
 
   win = new BrowserWindow({
     width: 500,
@@ -87,6 +75,37 @@ app.whenReady().then(() => {
 
   // メインウィンドウを表示
   createWindow();
+
+  // 自動アップデート
+  // require('update-electron-app')({
+  //   updateInterval: '5 minutes',
+  //   logger: log,
+  // });
+  autoUpdater.on('update-available', (info) => {
+    log.info('update-available');
+    log.info(info);
+  });
+  autoUpdater.on('update-not-available', () => {
+    log.info('update-not-available');
+  });
+  autoUpdater.on('error', (error: Error) => {
+    log.info('error');
+    log.info(error);
+  });
+  autoUpdater.on('checking-for-update', () => {
+    log.info('Checking for update...');
+  });
+  autoUpdater.on('update-downloaded', (info) => {
+    log.info('update-downloaded');
+    log.info(info);
+  });
+  autoUpdater.on('download-progress', (progressObj) => {
+    let log_message = 'Download speed: ' + progressObj.bytesPerSecond;
+    log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
+    log_message = log_message + ' (' + progressObj.transferred + '/' + progressObj.total + ')';
+    log.info(log_message);
+  });
+  autoUpdater.checkForUpdatesAndNotify();
 
   app.on('ready', createWindow);
 });
