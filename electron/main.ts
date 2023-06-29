@@ -13,7 +13,7 @@ function createWindow() {
     app.quit();
   }
 
-  log.info('version : 0.0.3');
+  log.info('version : 0.0.4');
 
   win = new BrowserWindow({
     width: 500,
